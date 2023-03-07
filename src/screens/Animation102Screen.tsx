@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Animated, PanResponder } from 'react-native';
 
 const Animation102Screen = () => {
   return (
