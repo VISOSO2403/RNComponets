@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Switch, Platform, StyleSheet} from 'react-native';
 import HeaderTitle from '../components/HeaderTitle';
 import CustomSwitch from '../components/CustomSwitch';
+import {styles} from '../theme/appTheme';
 
 const SwitchScreen = () => {
   const [first, setFirst] = useState({
@@ -49,17 +50,5 @@ const SwitchScreen = () => {
     </View>
   );
 };
-
-export const styles = StyleSheet.create({
-  switchRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-  switchText: {
-    fontSize: 25,
-  },
-});
 
 export default SwitchScreen;
