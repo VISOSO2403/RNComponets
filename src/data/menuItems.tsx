@@ -1,4 +1,4 @@
-import {MenuItem} from '../interfaces/appInterfaces';
+import { MenuItem } from '../interfaces/appInterfaces';
 
 export const menuItems: MenuItem[] = [
   {
@@ -36,4 +36,9 @@ export const menuItems: MenuItem[] = [
     icon: 'list-outline',
     component: 'SectionListScreen',
   },
+  {
+    name: "Modal",
+    icon: 'copy-outline',
+    component: 'ModalScreen'
+  }
 ];
