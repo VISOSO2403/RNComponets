@@ -1,54 +1,47 @@
-import React, {useRef} from 'react'
-import { Animated, Easing } from 'react-native';
+import React, {useRef} from 'react';
+import {Animated, Easing} from 'react-native';
 
 const useAnimation = () => {
+  const opacity = useRef(new Animated.Value(0)).current;
+  const position = useRef(new Animated.Value(0)).current;
 
-  const opacity  = useRef( new Animated.Value(0) ).current
-  const position = useRef( new Animated.Value(0) ).current
-
-  const fadeIn = () => {
-    Animated.timing(
-      opacity,
-      {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true
-      }
-    ).start( () => console.log('End Animation'))
-  }
+  const fadeIn = (duration: number = 300) => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const fadeOut = () => {
-    Animated.timing(
-      opacity,
-      {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true
-      }
-    ).start()
-  }
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
 
-  const startMovingPosition = ( initPosition:number, duration:number = 300 ) => {
-    position.setValue(initPosition)
-    
-    Animated.timing(
-      position,
-      {
-        toValue: 0,
-        duration: 800,
-        useNativeDriver: true,
-        // easing: Easing.bounce
-      }
-    ).start()
-  }
+  const startMovingPosition = (
+    initPosition: number,
+    duration: number = 300,
+  ) => {
+    position.setValue(initPosition);
+
+    Animated.timing(position, {
+      toValue: 0,
+      duration: 800,
+      useNativeDriver: true,
+      // easing: Easing.bounce
+    }).start();
+  };
 
   return {
     opacity,
     position,
     fadeIn,
     fadeOut,
-    startMovingPosition
-  }
-}
+    startMovingPosition,
+  };
+};
 
-export default useAnimation
+export default useAnimation;
