@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import Animation101Screen from '../screens/Animation101Screen';
 import Animation102Screen from '../screens/Animation102Screen';
@@ -9,6 +9,7 @@ import InputScreen from '../screens/InputScreen';
 import PullToRefreshScreen from '../screens/PullToRefreshScreen';
 import SectionListScreen from '../screens/SectionListScreen';
 import ModalScreen from '../screens/ModalScreen';
+import InfiniteScrollScreen from '../screens/InfiniteScrollScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,7 @@ export const Navigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: 'white' },
+        cardStyle: {backgroundColor: 'white'},
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="Animation101Screen" component={Animation101Screen} />
@@ -30,7 +31,11 @@ export const Navigator = () => {
         component={PullToRefreshScreen}
       />
       <Stack.Screen name="SectionListScreen" component={SectionListScreen} />
-      <Stack.Screen name='ModalScreen' component={ModalScreen} />
+      <Stack.Screen name="ModalScreen" component={ModalScreen} />
+      <Stack.Screen
+        name="InfiniteScrollScreen"
+        component={InfiniteScrollScreen}
+      />
     </Stack.Navigator>
   );
 };
