@@ -46,4 +46,9 @@ export const menuItems: MenuItem[] = [
     icon: 'arrow-down-circle-outline',
     component: 'InfiniteScrollScreen',
   },
+  {
+    name: 'Slides',
+    icon: 'layers-outline',
+    component: 'SlidesScreen',
+  },
 ];

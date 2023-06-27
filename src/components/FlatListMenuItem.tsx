@@ -1,8 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {MenuItem} from '../interfaces/appInterfaces';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import {useNavigation} from '@react-navigation/native';
+
+import {MenuItem} from '../interfaces/appInterfaces';
 
 interface Props {
   menuItem: MenuItem;
