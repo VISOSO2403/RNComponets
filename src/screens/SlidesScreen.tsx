@@ -1,53 +1,76 @@
-import React from 'react';
+import React, {FunctionComponent, useRef} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   View,
   StyleSheet,
   TouchableOpacity,
   Text,
   Dimensions,
+  FlatList,
+  Animated,
 } from 'react-native';
+
 import {slideItems} from '../data/slidesItems';
 import FlatListSlidesItems from '../components/FlatListSlidesItems';
-import Icon from 'react-native-vector-icons/Ionicons';
 
-import {useDerivedValue, useSharedValue} from 'react-native-reanimated';
-import Dot from '../components/Dot';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SlidesScreen = () => {
   const {width} = Dimensions.get('window');
-
-  const translateX = useSharedValue(0);
-
-  const activeIndex = useDerivedValue(() => {
-    return Math.round(translateX.value / width);
-  });
+  const animatedValue = useRef(new Animated.Value(0)).current;
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
       }}>
-      <ScrollView
-        horizontal
+      {/* Contenido */}
+      <Animated.FlatList
+        data={slideItems}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({item}) => <FlatListSlidesItems slideItem={item} />}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {x: animatedValue}}}],
+          {useNativeDriver: false},
+        )}
         pagingEnabled
-        showsHorizontalScrollIndicator={false}>
-        {slideItems.map((slide, index) => (
-          <FlatListSlidesItems key={index.toString()} slideItem={slide} />
-        ))}
-      </ScrollView>
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
+
+      {/* Footer  */}
       <View style={styles.footer}>
         <View style={{...styles.fillCenter, flexDirection: 'row'}}>
-          {slideItems.map((_, index) => {
-            return (
-              <Dot
-                key={index.toString()}
-                index={index}
-                activeDotIndex={activeIndex}
-              />
-            );
-          })}
+          <FlatList
+            horizontal
+            data={slideItems}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({index}) => {
+              const inputRange = [
+                (index - 1) * width,
+                index * width,
+                (index + 1) * width,
+              ];
+              const colorOutputRange = ['white', 'black', 'white'];
+              const scaleOutputRange = [1, 2, 1];
+              const donScale = animatedValue.interpolate({
+                inputRange,
+                outputRange: scaleOutputRange,
+                extrapolate: 'clamp',
+              });
+              const color = animatedValue.interpolate({
+                inputRange,
+                outputRange: colorOutputRange,
+                extrapolate: 'clamp',
+              });
+
+              return (
+                <View style={styles.dotContainer}>
+                  <Dot scale={donScale} color={color} />
+                </View>
+              );
+            }}
+          />
         </View>
         <View style={styles.fillCenter}>
           <TouchableOpacity
@@ -72,6 +95,19 @@ const SlidesScreen = () => {
   );
 };
 
+interface dotProps {
+  scale: Animated.AnimatedInterpolation<string | number>;
+  color: Animated.AnimatedInterpolation<string | number>;
+}
+
+const Dot = ({scale, color}: dotProps) => {
+  return (
+    <Animated.View
+      style={[styles.dot, {backgroundColor: color, transform: [{scale}]}]}
+    />
+  );
+};
+
 const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
@@ -82,6 +118,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  dotContainer: {
+    width: 50,
+    padding: 10,
+  },
+  dot: {
+    width: 14,
+    height: 14,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    borderWidth: 1,
   },
 });
 export default SlidesScreen;
