@@ -40,6 +40,7 @@ const SlidesScreen = () => {
 
       {/* Footer  */}
       <View style={styles.footer}>
+        {/* Pagination */}
         <View style={{...styles.fillCenter, flexDirection: 'row'}}>
           <FlatList
             horizontal
@@ -72,6 +73,8 @@ const SlidesScreen = () => {
             }}
           />
         </View>
+
+        {/* next Bottom  */}
         <View style={styles.fillCenter}>
           <TouchableOpacity
             style={{
@@ -120,12 +123,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dotContainer: {
-    width: 50,
+    marginLeft: 10,
+    width: 40,
     padding: 10,
   },
   dot: {
-    width: 14,
-    height: 14,
+    width: 10,
+    height: 10,
     marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 1,

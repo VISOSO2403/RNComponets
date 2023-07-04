@@ -51,4 +51,9 @@ export const menuItems: MenuItem[] = [
     icon: 'layers-outline',
     component: 'SlidesScreen',
   },
+  {
+    name: 'SlidesCarousel',
+    icon: 'layers-outline',
+    component: 'SlidesCarousel',
+  },
 ];
