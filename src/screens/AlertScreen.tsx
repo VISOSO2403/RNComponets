@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, Button, Alert} from 'react-native';
 
 import prompt from 'react-native-prompt-android';
 
 import HeaderTitle from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 const AlertScreen = () => {
   const showAlert = () => {
@@ -19,7 +20,7 @@ const AlertScreen = () => {
         },
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ],
-      //   No es recomendable mandarle estos argumentos, porque se debe obligar al usuario a presionar
+      //   No es recomendable mandarle los argumentos, porque se debe obligar al usuario a presionar
       //   un boton de las opciones
       {
         cancelable: true,
@@ -62,16 +63,28 @@ const AlertScreen = () => {
     );
   };
 
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
+
   return (
     <View style={styles.globalMargin}>
       <HeaderTitle title="Alerts" />
 
-      <Button title="Mostrar Alerta" onPress={showAlert} />
+      <Button
+        title="Mostrar Alerta"
+        onPress={showAlert}
+        color={colors.primary}
+      />
 
       <View style={{marginTop: 10}} />
 
       {/* Esta funcion solo esta disponible en Ios */}
-      <Button title="Mostrar Promp" onPress={showPromp} />
+      <Button
+        title="Mostrar Promp"
+        onPress={showPromp}
+        color={colors.primary}
+      />
     </View>
   );
 };

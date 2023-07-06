@@ -1,13 +1,17 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { Navigator } from './src/navigator/Navigator';
+import React from 'react';
+import {Navigator} from './src/navigator/Navigator';
+import {ThemeProvider} from './src/context/theme/ThemeContext';
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <AppState>
       <Navigator />
-    </NavigationContainer>
-  )
-}
+    </AppState>
+  );
+};
 
-export default App
+const AppState = ({children}: any) => {
+  return <ThemeProvider>{children}</ThemeProvider>;
+};
+
+export default App;

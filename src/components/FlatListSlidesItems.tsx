@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
 import {SlideItem} from '../interfaces/appInterfaces';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 interface Props {
   slideItem: SlideItem;
@@ -8,6 +9,9 @@ interface Props {
 
 const FlatListSlidesItems = ({slideItem}: Props) => {
   const {width} = Dimensions.get('window');
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   return (
     <View style={[styles.container, {width}]}>
       <Image source={slideItem.img} style={[styles.image]} />
@@ -15,6 +19,7 @@ const FlatListSlidesItems = ({slideItem}: Props) => {
         <Text
           style={{
             ...styles.title,
+            color: colors.primary,
           }}>
           {slideItem.title}
         </Text>
@@ -22,6 +27,7 @@ const FlatListSlidesItems = ({slideItem}: Props) => {
         <Text
           style={{
             ...styles.subTitle,
+            color: colors.text,
           }}>
           {slideItem.desc}
         </Text>
@@ -44,7 +50,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 35,
     fontWeight: '700',
-    color: '#5856D6',
   },
   subTitle: {
     fontSize: 16,

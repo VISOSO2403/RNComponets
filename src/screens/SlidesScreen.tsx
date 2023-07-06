@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useRef} from 'react';
+import React, {FunctionComponent, useContext, useRef} from 'react';
 import {
   SafeAreaView,
   View,
@@ -14,10 +14,14 @@ import {slideItems} from '../data/slidesItems';
 import FlatListSlidesItems from '../components/FlatListSlidesItems';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 const SlidesScreen = () => {
   const {width} = Dimensions.get('window');
   const animatedValue = useRef(new Animated.Value(0)).current;
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
 
   return (
     <SafeAreaView
@@ -87,10 +91,15 @@ const SlidesScreen = () => {
                 fontSize: 15,
                 textTransform: 'uppercase',
                 fontWeight: '500',
+                color: colors.text,
               }}>
               Entrar
             </Text>
-            <Icon name="chevron-forward-outline" size={30} color="black" />
+            <Icon
+              name="chevron-forward-outline"
+              size={30}
+              color={colors.primary}
+            />
           </TouchableOpacity>
         </View>
       </View>

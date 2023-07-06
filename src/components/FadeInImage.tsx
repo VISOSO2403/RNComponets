@@ -6,8 +6,9 @@ import {
   StyleProp,
   ImageStyle,
 } from 'react-native';
-import React, {useReducer, useState} from 'react';
+import React, {useContext, useReducer, useState} from 'react';
 import useAnimation from '../hooks/useAnimation';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 interface Props {
   uri: string;
@@ -23,12 +24,16 @@ const FadeInImage = ({uri, style}: Props) => {
     fadeIn();
   };
 
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
+
   return (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
       {isLoading && (
         <ActivityIndicator
           style={{position: 'absolute'}}
-          color={'#5856D6'}
+          color={colors.primary}
           size={30}
         />
       )}

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import HeaderTitle from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
 import {useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 const PullToRefreshScreen = () => {
   //solucion para notch de Dispositivos
@@ -21,6 +22,10 @@ const PullToRefreshScreen = () => {
     }, 2500);
   };
 
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
+
   return (
     <ScrollView
       style={{
@@ -32,11 +37,11 @@ const PullToRefreshScreen = () => {
           onRefresh={onRefresh}
           //Solo disponibles en Android
           progressViewOffset={10} //Distancia entre el Top y el Refresh
-          progressBackgroundColor="purple" //Cambia el color del fondo
+          progressBackgroundColor={colors.primary} //Cambia el color del fondo
           colors={['white', 'red', 'green']} // Cambia el color por etapas
           //Solo disponible en Ios
           style={{backgroundColor: 'blue'}}
-          tintColor="white"
+          tintColor={colors.primary}
         />
       }>
       <View style={styles.globalMargin}>

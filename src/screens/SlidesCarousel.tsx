@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FlatListSlidesItems from '../components/FlatListSlidesItems';
 import useAnimation from '../hooks/useAnimation';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ThemeContext} from '../context/theme/ThemeContext';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -48,7 +49,9 @@ const SlidesCarousel = ({navigation}: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const {opacity, fadeIn} = useAnimation();
   const isVisible = useRef(false);
-
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   return (
     <SafeAreaView
       style={{
@@ -87,7 +90,7 @@ const SlidesCarousel = ({navigation}: Props) => {
             width: 10,
             height: 10,
             borderRadius: 10,
-            backgroundColor: '#5856D6',
+            backgroundColor: colors.primary,
           }}
         />
 
@@ -109,10 +112,15 @@ const SlidesCarousel = ({navigation}: Props) => {
                 fontSize: 15,
                 textTransform: 'uppercase',
                 fontWeight: '500',
+                color: colors.text,
               }}>
               Entrar
             </Text>
-            <Icon name="chevron-forward-outline" size={30} color="black" />
+            <Icon
+              name="chevron-forward-outline"
+              size={30}
+              color={colors.primary}
+            />
           </TouchableOpacity>
         </Animated.View>
       </View>
